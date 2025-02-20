@@ -1,0 +1,23 @@
+# Use root/example as user/password credentials
+version: '3.9'
+
+services:
+  docling:
+    image: docling:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/arm64
+    # runtime: nvidia
+    ports:
+      - "5052:5052"
+    environment:
+      - PORT=5052
+      - PYTORCH_ENABLE_MPS_FALLBACK=1
+      - USE_GPU=1
+    volumes:
+      - docling_data:/app/src/uploads
+
+
+volumes:
+  docling_data: {}
